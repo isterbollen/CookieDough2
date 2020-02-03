@@ -1,0 +1,22 @@
+{% extends "DrugiComp/base.html" %}
+{% block content %}
+	<div>
+		<form action="{% url 'DrugiComp-home' %}" method="POST">
+			{% csrf_token %}
+			<h3>Interaction checker</h3>
+			<hr>
+			<input type="text" class="form_text" name="drug1" placeholder="Type drug number 1">
+			<br>
+			<input type="text" class="form_text" name="drug2" placeholder="Type drug number 2">
+			<br>
+			<input type="image" class="button_add" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Plus_font_awesome.svg/1024px-Plus_font_awesome.svg.png" />
+			<br><br>
+			<input type="submit" value="Try!" />
+		</form>
+		{% if interactions %}
+			{% for row in interactions%}
+				{{row}}
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endblock content %}
