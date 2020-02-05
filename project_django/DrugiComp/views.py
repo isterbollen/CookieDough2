@@ -3,11 +3,8 @@ from django.db import connection
 
 def home(request):
 	cur = connection.cursor()
-	drug1=None
-	drug2=None
-	if request.method=='POST':
-		drug1=request.POST.get("drug1", "")
-		drug2=request.POST.get("drug2", "")
+	drug1=request.POST.get("drug1")
+	drug2=request.POST.get("drug2")
 	listD=[drug1,drug2]
 	listS=[]
 	listI=[]
@@ -27,3 +24,9 @@ def home(request):
 
 def about(request):
 	return render(request, 'DrugiComp/about.html', {'title':'About'})
+
+def statistics(request):
+	cur=connection.cursor()
+	nb=request.POST.get("drug")
+	context={'title':'Statistics', 'nbdrug':nb}
+	return render(request, 'DrugiComp/statistics.html', context)
