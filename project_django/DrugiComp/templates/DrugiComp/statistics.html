@@ -38,7 +38,26 @@
 	<button type="button" href="#" id="adddrug" onclick="addFields()">+</button>
 	<div id="container"></div>
 </form>
-{% if nbdrug %}
-	{{nbdrug}}
-{% endif %}
+<h4>List of the checked drugs</h4>
+<ul>
+	{% for item in listDbis %}
+		<li>{{item.0}} ({{item.1}})</li>
+	{% endfor %}
+</ul>
+<h4>Interactions found</h4>
+<table>
+    <thead>
+        <th>Substance A</th>
+        <th>Substance B</th>
+        <th>Level</th>
+    </thead>
+     
+    {% for row in listI %}
+        <tr>
+           <td>{{row.0}}</td>
+           <td>{{row.1}}</td>
+           <td>{{row.2}}</td>
+        </tr>
+    {% endfor %}
+</table>
 {% endblock content %}
