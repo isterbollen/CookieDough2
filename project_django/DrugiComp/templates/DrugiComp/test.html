@@ -1,0 +1,36 @@
+{% extends "DrugiComp/base.html" %}
+{% block content %}
+
+<h1>Testpage</h1>
+<p>This is a try, it's not really what is going to stay on the page</p>
+
+
+	<div>
+			<form action="{% url 'DrugiComp-test' %}" method="POST">
+				{% csrf_token %}
+				<h3>Type a drug and find out which other drugs you cannot take with this one</h3>
+				<hr>
+				<input type="text" class="form_text" name="drug" placeholder="Drug to test">
+				<output name="x" for="drug"></output>
+				<br>
+				<br>
+				<input type="submit" value="Find interactions" />
+			</form>
+
+			<h4>You want to know which drugs you can take together with:</h4>
+			{% if drug %}
+				{% for row in drug%}
+					{{row}}
+				{% endfor %}
+			{% endif %}
+			<br><br>
+
+			<h4>Substances you should not take</h4>
+			{% if substNot %}
+				{% for row in substNot%}
+					{{row}}
+				{% endfor %}
+			{% endif %}
+		</div>
+
+{% endblock content %}
