@@ -31,11 +31,11 @@ def statistics(request):
 	listDbis=[]
 	listS=[]
 	listI=[]
-	nb=request.POST.get("drug")
-	if nb!=None:
-		nb=int(nb)
-		for i in range(nb):
-			listD.append(request.POST.get(f'drug{i+1}'))
+	cur.execute("SELECT name FROM drug")
+	ndrugs=cur.fetchall()
+	for i in range(5):
+		if request.POST.get(f'drug{i}')!=None:
+			listD.append(request.POST.get(f'drug{i}'))
 	for i in listD:
 		cur.execute("SELECT subst_name FROM drug WHERE name=%s",([i]))
 		r=cur.fetchall()
@@ -48,7 +48,7 @@ def statistics(request):
 		li=list(row[0:])
 		if li[0] in listS and li[1] in listS:
 			listI.append(li)
-	context={'title':'Statistics', 'listI':listI, 'listDbis':listDbis}
+	context={'title':'Statistics', 'listI':listI, 'listDbis':listDbis, 'drugs':ndrugs}
 	return render(request, 'DrugiComp/statistics.html', context)
 
 def test(request):
