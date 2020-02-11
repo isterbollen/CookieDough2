@@ -4,39 +4,31 @@
 <h1>Statistics</h1>
 <p>This is a try, it's not really what is going to stay on the page</p>
 <form action="{% url 'DrugiComp-statistics' %}" method="POST">
-	<script type='text/javascript'>
-	    function addFields(){
-	        // Number of inputs to create
-	        var number = document.getElementById("drug").value;
-	        // Container <div> where dynamic content will be placed
-	        var container = document.getElementById("container");
-	        // Clear previous contents of the container
-	        while (container.hasChildNodes()) {
-	            container.removeChild(container.lastChild);
-	        }
-	        for (i=0;i<Math.min(number, 5);i++){
-	            // Create an <input> element, set its type and name attributes
-	            var input = document.createElement("input");
-	            input.type = "text";
-	            input.name = "drug" + (i+1);
-	            input.placeholder = "Enter drug "+(i+1);
-	            input.className = "form_text"
-	            container.appendChild(input);
-	            // Append a line break 
-	            container.appendChild(document.createElement("br"));
-	        }
-	        var input2=document.createElement("input");
-		    input2.type="submit"
-		    input2.value="Try!"
-		    container.appendChild(document.createElement("br"));
-		    container.appendChild(input2);
-	    }
-	</script>
 	{% csrf_token %}
+	<script>
+		var cnt=2;
+		function addField(){
+			if(cnt<5){
+				cnt=parseInt(cnt)+parseInt(1);
+				var container=document.getElementById("container");
+				var input=document.createElement("input");
+				input.type="text";
+				input.name="drug"+cnt;
+				input.placeholder="Enter drug "+cnt;
+				input.className = "form_text";
+				container.appendChild(input);
+			}
+			else{
+				document.getElementById("addbutton").disabled=true;
+			}
+		}
+	</script>
 	<h3>Interaction Checker</h3><hr>
-	<input type="number" min="1" max="5" class="form_text" id="drug" name="drug" value="" placeholder="Number of drugs: (max. 5)"><br />
-	<button type="button" href="#" id="adddrug" onclick="addFields()">+</button>
+	<input type="text" name="drug1" placeholder="Enter drug 1" class="form_text">
+	<input type="text" name="drug2" placeholder="Enter drug 2" class="form_text">
 	<div id="container"></div>
+	<input type="button" id="addbutton" value="+" onclick="addField()"/>
+	<input type='submit' value='Try!'>
 </form>
 <h4>List of the checked drugs</h4>
 <ul>
@@ -45,19 +37,23 @@
 	{% endfor %}
 </ul>
 <h4>Interactions found</h4>
-<table>
-    <thead>
-        <th>Substance A</th>
-        <th>Substance B</th>
-        <th>Level</th>
-    </thead>
-     
-    {% for row in listI %}
-        <tr>
-           <td>{{row.0}}</td>
-           <td>{{row.1}}</td>
-           <td>{{row.2}}</td>
-        </tr>
-    {% endfor %}
-</table>
+{% if listI %}
+	<table>
+	    <thead>
+	        <th>Substance A</th>
+	        <th>Substance B</th>
+	        <th>Level</th>
+	    </thead>
+	     
+	    {% for row in listI %}
+	        <tr>
+	           <td>{{row.0}}</td>
+	           <td>{{row.1}}</td>
+	           <td>{{row.2}}</td>
+	        </tr>
+	    {% endfor %}
+	</table>
+{% else %}
+	<p>No interactions found</p>
+{% endif %}
 {% endblock content %}
