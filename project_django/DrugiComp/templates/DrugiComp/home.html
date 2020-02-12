@@ -1,22 +1,81 @@
 {% extends "DrugiComp/base.html" %}
 {% block content %}
-	<div>
-		<form action="{% url 'DrugiComp-home' %}" method="POST">
-			{% csrf_token %}
-			<h3>Interaction checker</h3>
-			<hr>
-			<input type="text" class="form_text" name="drug1" placeholder="Type drug number 1">
-			<br>
-			<input type="text" class="form_text" name="drug2" placeholder="Type drug number 2">
-			<br>
-			<input type="image" class="button_add" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Plus_font_awesome.svg/1024px-Plus_font_awesome.svg.png" />
-			<br><br>
-			<input type="submit" value="Try!" />
-		</form>
-		{% if interactions %}
-			{% for row in interactions%}
-				{{row}}
-			{% endfor %}
-		{% endif %}
-	</div>
+<form action="{% url 'DrugiComp-home' %}" method="POST">
+	{% csrf_token %}
+	<script>
+		var cnt=2;
+		var ldrugs=[];
+		{% for drug in nd %}
+			ldrugs.push('{{drug}}');
+		{% endfor %}
+		function addField(){
+			if(cnt<5){
+				cnt=parseInt(cnt)+parseInt(1);
+				var input = document.createElement("INPUT");
+				input.setAttribute("list", "drugs");
+				input.type="text";
+				input.name="drug"+cnt;
+				input.placeholder="Enter drug "+cnt;
+				input.className = "form_text";
+				document.getElementById("container").appendChild(input);
+				var datalist = document.createElement("DATALIST");
+				datalist.setAttribute("id", "drugs");
+				document.getElementById("container").appendChild(datalist);
+				while (document.getElementById("drugs").hasChildNodes()) {
+					document.getElementById("drugs").removeChild(datalist.lastChild);
+	        	}
+				for (i=0;i<ldrugs.length;i++){
+					var option = document.createElement("OPTION");
+					option.setAttribute("value", ldrugs[i]);
+					document.getElementById("drugs").appendChild(option);
+				}
+			}
+			else{
+				document.getElementById("addbutton").disabled=true;
+			}
+		}
+	</script>
+	<h3>Interaction Checker</h3><hr>
+	<input type="text" list="drug1" name="drug1" placeholder="Enter drug 1" class="form_text">
+	<datalist id="drug1">
+		{% for drug in nd %}
+			<option value="{{ drug }}">
+		{% endfor %}
+	</datalist>
+	<input type="text" list="drug2" name="drug2" placeholder="Enter drug 2" class="form_text">
+	<datalist id="drug2">
+		{% for drug in nd %}
+			<option value="{{ drug }}">
+		{% endfor %}
+	</datalist>
+	<div id="container"></div>
+	<input type="button" id="addbutton" value="+" onclick="addField()"/>
+	<input type='submit' value='Try!'>
+</form>
+<h4>List of the checked drugs</h4>
+<ul>
+	{% for item in listDbis %}
+		<li>{{item.0}} ({{item.1}})</li>
+	{% endfor %}
+</ul>
+<h4>Interactions found</h4>
+{% if listI %}
+	<table>
+	    <thead>
+	        <th>Substance A</th>
+	        <th>Substance B</th>
+	        <th>Level</th>
+	    </thead>
+	     
+	    {% for row in listI %}
+	        <tr>
+	           <td>{{row.0}}</td>
+	           <td>{{row.1}}</td>
+	           <td>{{row.2}}</td>
+	        </tr>
+	    {% endfor %}
+	</table>
+{% else %}
+	<p>No interactions found</p>
+{% endif %}
 {% endblock content %}
