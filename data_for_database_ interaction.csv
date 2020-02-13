@@ -1,0 +1,45 @@
+
+Ibuprofen,Rifampicin,The serum concentration of Rifampicin can be increased when it is combined with Ibuprofen.,2
+Ibuprofen,Disopyramide,Ibuprofen may decrease the excretion rate of Disopyramide which could result in a higher serum level.,3
+Ibuprofen,Cimetidin,The excretion of Cimetidine can be decreased when combined with Ibuprofen.,2
+Ibuprofen,Acetaminophen,0
+Ibuprofen,Morphine,The serum concentration of Morphine can be increased when it is combined with Ibuprofen.,2
+Ibuprofen,Amitriptylin,The serum concentration of Amitriptyline can be increased when it is combined with Acetaminophen.,2
+Ibuprofen,Citalopram,The risk or severity of gastrointestinal bleeding can be increased when Citalopram is combined with Ibuprofen.,4
+Ibuprofen,Methadone,The serum concentration of Ibuprofen can be increased when it is combined with Methadone.,2
+Ibuprofen,Diphenhydramine,,0
+Rifampicin,Disopyramide,The metabolism of Disopyramide can be increased when combined with Rifampicin.,2
+Rifampicin,Cimetidin,Cimetidine can cause a decrease in the absorption of Rifampicin resulting in a reduced serum concentration and potentially a decrease in efficacy.,3
+Rifampicin,Acetaminophen,Rifampicin may increase the hepatotoxic activities of Acetaminophen.,4
+Rifampicin,Morphine,The metabolism of Morphine can be increased when combined with Rifampicin.,2
+Rifampicin,Amitriptylin,The metabolism of Amitriptyline can be increased when combined with Rifampicin.,2
+Rifampicin,Citalopram,The serum concentration of Citalopram can be decreased when it is combined with Rifampicin.,2
+Rifampicin,Methadone,The serum concentration of Rifampicin can be increased when it is combined with Methadone.,2
+Rifampicin,Diphenhydramine,,0
+Disopyramid,Cimetidin,The serum concentration of Cimetidine can be increased when it is combined with Disopyramide,2
+Disopyramid,Acetaminophen,Disopyramide may decrease the excretion rate of Acetaminophen which could result in a higher serum level.,2
+Disopyramid,Morphine,The risk or severity of adverse effects can be increased when Morphine is combined with Disopyramide.,4
+Disopyramid,Amitriptylin,The risk or severity of QTc prolongation can be increased when Amitriptyline is combined with Disopyramide.,4
+Disopyramid,Citalopram,The risk or severity of QTc prolongation can be increased when Citalopram is combined with Disopyramide.,4
+Disopyramide,Methadone,The risk or severity of adverse effects can be increased when Methadone is combined with Disopyramide.,4
+Disopyramid,Diphenhydramine,The risk or severity of QTc prolongation can be increased when Diphenhydramine is combined with Disopyramide.,4
+Acetaminophen,Cimetidin,Cimetidine may increase the  hepatotoxic activities of Acetaminophen.,4
+Acetaminophen,Morphine,The serum concentration of Morphine can be increased when it is combined with Acetaminophen.,3
+Acetaminophen,Amitriptylin,The serum concentration of Amitriptyline can be increased when it is combined with Acetaminophen.,3
+Acetaminophen,Citalopram,The serum concentration of Acetaminophen can be increased when it is combined with Citalopram.,3
+Acetaminophen,Methadone,The serum concentration of Acetaminophen can be increased when it is combined with Methadone.,3
+Cimetidin,Morphine,The serum concentration of Morphine can be increased when it is combined with Cimetidine.,3
+Cimetidin,Amitriptylin,The metabolism of Amitriptyline can be decreased when combined with Cimetidine.,3
+Cimetidin,Citalopram,The serum concentration of Citalopram can be increased when it is combined with Cimetidine.,3
+Cimetidin,Methadone,The metabolism of Cimetidine can be decreased when combined with Methadone.,3
+Cimetidin,Diphenhydramine,The metabolism of Cimetidine can be decreased when combined with Diphenhydramine.,3
+Morphine,Amitriptylin,,0
+Morphine,Citalopram,,0
+Morphine,Methadone,,0
+Morphine,Diphenhydramine,,0
+Amitriptylin,Citalopram,The metabolism of Amitriptyline can be decreased when combined with Citalopram.,3
+Amitriptylin,Methadone,The risk or severity of adverse effects can be increased when Methadone is combined with Amitriptyline.,4
+Amitriptylin,Diphenhydramine,The metabolism of Amitriptyline can be decreased when combined with Diphenhydramine,3
+Citalopram,Methadone,The risk or severity of adverse effects can be increased when Methadone is combined with Citalopram.,4
+Citalopram,Diphenhydramine,The risk or severity of adverse effects can be increased when Diphenhydramine is combined with Citalopram.,4
+Methadone,Diphenhydramine,The risk or severity of adverse effects can be increased when Methadone is combined with Diphenhydramine.,4
