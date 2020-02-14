@@ -3,36 +3,34 @@
 
 <h1>Testpage</h1>
 <p>This is a try, it's not really what is going to stay on the page</p>
+<div>
+	<form action="{% url 'DrugiComp-test' %}" method="POST">
+		{% csrf_token %}
+		<h3>Type a drug and find out which other drugs you cannot take with this one</h3>
+		<hr>
+		<input type="text" class="form_text" list="drug" name="drug" placeholder="Drug to test">
+		<datalist id="drug">
+			{% for drug in ldrugs %}
+				<option value="{{ drug.0 }}"></option>
+			{% endfor %}
+		</datalist>
+		<output name="x" for="drug"></output>
+		<br>
+		<br>
+		<input type="submit" value="Find interactions" />
+	</form>
 
-
-	<div>
-			<form action="{% url 'DrugiComp-test' %}" method="POST">
-				{% csrf_token %}
-				<h3>Type a drug and find out which other drugs you cannot take with this one</h3>
-				<hr>
-				<input type="text" class="form_text" list="drug" name="drug" placeholder="Drug to test" style="border-color: #DDE5D9">
-				<datalist id="drug">
-					{% for drug in ldrugs %}
-						<option value="{{ drug.0 }}"></option>
-					{% endfor %}
-				</datalist>
-				<output name="x" for="drug"></output>
-				<br>
-				<input type="submit" value="Find interactions" STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000"/>
-			</form>
-
-			<h4>You want to know which drugs you can't take together with:</h4>
-				{% for row in drug %}
-					{{ row }}
-				{% endfor %}
-			<br><br>
-			<hr>
-			<h4>Substances you should not take</h4>
-			<ul>
-				{% for row in drugsNot %}
-					<li>{{ row.0 }}</li>
-				{% endfor %}
-			</ul>
-		</div>
-
+	{% if drug %}
+	<h4>You want to know which drugs you can't take together with:</h4>
+	{{drug}} ({{subst}}, {{acc_nb}})
+	<br><br>
+	<hr>
+	<h4>Substances you should not take</h4>
+	<ul>
+		{% for row in ld %}
+			<li>{{ row }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+</div>
 {% endblock content %}
