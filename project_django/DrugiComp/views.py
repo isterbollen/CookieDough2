@@ -36,59 +36,35 @@ def statistics(request):
 	return render(request, 'DrugiComp/statistics.html', context)
 
 def test(request):
-	cur = connection.cursor()
-	listD=[] # List of the drug to test
-	listAll=[] # List of all drugs 
-	listSdrug=[] # Substances will be in this list 
-	listSalldrugs=[] # Substances from all drugs
-	listI=[] # Interactions
-	listSnot=[] # Substances not to take
-	listDnot=[] # Drugs not to take
-	if request.POST.get("drug")!=None:
-		listD.append(request.POST.get("drug"))
-	# Get all drugs into a list
-	cur.execute("SELECT name FROM drug")
-	r=cur.fetchall()
-	for row in r:
-		listAll.append(row[0:])
-
-	# Fetch all substances from the drug to test
-	for i in listD:
-		cur.execute("SELECT subst_name FROM drug WHERE name=%s",([i]))
-		r=cur.fetchall() # Get all substances in the drug
-		for row in r:
-			listSdrug.append(row[0]) # Save substances in listS
-
-	# Fetch all substances from all drugs
-	for i in listAll:
-		cur.execute("SELECT subst_name FROM drug WHERE name=%s",([i]))
-		r=cur.fetchall() # Get all substances in the drug
-		for row in r:
-			listSalldrugs.append(row[0]) # Save substances in listS
-
-	# Find interactions
-	cur.execute("SELECT * FROM interactions")
-	r=cur.fetchall()
-	for row in r:
-		li=list(row[0:])
-		if li[0] in listSdrug and li[1] in listSalldrugs:
-			listI.append(li)
-
-	# Trace back the substances in interactions to which drugs has this (these we cannot take)
-	for i in listI:
-		listSnot.append(i[1])
-
-	# Find out which drugs not to take
-	for i in listSnot:
-		cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([i]))
-		r=cur.fetchall()
-		for row in r:
-			listDnot.append(row[0:])
-
-	# Autofill function
 	cur=connection.cursor()
 	cur.execute("SELECT name FROM drug")
 	ndrugs=cur.fetchall()
-	
-	context = {'title':'Test', 'drug':listD, 'drugsNot':listDnot, 'ldrugs':ndrugs}
+	inpdrug=""
+	subst=""
+	acc_nb=""
+	ld=[]
+	drugsint=[]
+	if request.POST.get("drug")!=None:
+		inpdrug=request.POST.get("drug")
+	cur.execute("""SELECT d.subst_name, s.accession_num 
+					FROM drug d JOIN substance s ON d.subst_name=s.name 
+					WHERE d.name=%s""",([inpdrug]))
+	r=cur.fetchall()
+	for row in r:
+		subst=row[0]
+		acc_nb=row[1]
+	cur.execute("""SELECT * FROM interactions 
+					WHERE subst_a=%s OR subst_b=%s""",([subst],[subst]))
+	r=cur.fetchall()
+	for row in r:
+		if row[0]==subst:
+			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[1]]))
+			res=cur.fetchall()
+			ld.append(res[0][0])
+		if row[1]==subst:
+			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[0]]))
+			res=cur.fetchall()
+			ld.append(res[0][0])
+	context={'title':'Test', 'ldrugs':ndrugs, 
+	'drug':inpdrug, 'drugsint':drugsint, 'subst':subst, 'acc_nb':acc_nb, 'ld':ld}
 	return render(request, 'DrugiComp/test.html', context)
