@@ -89,7 +89,6 @@ def test(request):
 	cur=connection.cursor()
 	cur.execute("SELECT name FROM drug")
 	ndrugs=cur.fetchall()
-		#context={'title':'Statistics', 'ldrugs':ndrugs}
-
-	context = {'drug':listD, 'drugsNot':listDnot, 'ldrugs':ndrugs}
+	
+	context = {'title':'Test', 'drug':listD, 'drugsNot':listDnot, 'ldrugs':ndrugs}
 	return render(request, 'DrugiComp/test.html', context)
