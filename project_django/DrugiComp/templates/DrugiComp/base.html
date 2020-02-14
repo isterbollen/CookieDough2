@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'DrugiComp/main.css' %}">
 	{% if title %}
-		<title>DrugiComp - {{ title }}</title>
+		<title>DrugiComp - {{ title }}</title> <!-- Namnet på fliken i webbfönstret -->
 	{% else %}
 		<title>DrugiComp</title>
 	{% endif %}
@@ -21,7 +21,7 @@
 	<header class="site-header">
 	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 	    <div class="container">
-	    	<a class="navbar-brand mr-4" href="{% url 'DrugiComp-home' %}">DrugiComp</a>
+	    	<a class="navbar-brand mr-4" href="{% url 'DrugiComp-home' %}">DrugiComp</a> <!-- Name up left in site, click to go to home page  -->
 	    	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	    	<span class="navbar-toggler-icon"></span>
 	    	</button>
@@ -29,8 +29,8 @@
 	    		<div class="navbar-nav mr-auto">
 	    			<a class="nav-item nav-link" href="{% url 'DrugiComp-home' %}">Home</a>
 	    			<a class="nav-item nav-link" href="{% url 'DrugiComp-about' %}">About</a>
-				<a class="nav-item nav-link" href="{% url 'DrugiComp-statistics' %}">Statistics</a>
-				<a class="nav-item nav-link" href="{% url 'DrugiComp-test' %}">Test</a>
+					<a class="nav-item nav-link" href="{% url 'DrugiComp-statistics' %}">Statistics</a>
+					<a class="nav-item nav-link" href="{% url 'DrugiComp-test' %}">Test</a>
 	    		</div>
 	    	</div>
 	    </div>
