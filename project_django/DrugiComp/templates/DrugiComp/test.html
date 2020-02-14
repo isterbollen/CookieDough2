@@ -10,7 +10,7 @@
 				{% csrf_token %}
 				<h3>Type a drug and find out which other drugs you cannot take with this one</h3>
 				<hr>
-				<input type="text" class="form_text" list="drug" name="drug" placeholder="Drug to test">
+				<input type="text" class="form_text" list="drug" name="drug" placeholder="Drug to test" style="border-color: #DDE5D9">
 				<datalist id="drug">
 					{% for drug in ldrugs %}
 						<option value="{{ drug.0 }}"></option>
@@ -18,8 +18,7 @@
 				</datalist>
 				<output name="x" for="drug"></output>
 				<br>
-				<br>
-				<input type="submit" value="Find interactions" />
+				<input type="submit" value="Find interactions" STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000"/>
 			</form>
 
 			<h4>You want to know which drugs you can't take together with:</h4>
