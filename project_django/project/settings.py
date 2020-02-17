@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'ims_drugicomp',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'NAME': 'spring20_ims_4',
+        'USER': 'spring20_ims_4',
+        'PASSWORD': 'Ec5AmCRM',
+        'HOST': 'back.db1.course.it.uu.se',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

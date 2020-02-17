@@ -23,9 +23,9 @@
 	{% if drug %}
 	<h4>You want to know which drugs you can't take together with:</h4>
 	{{drug}} ({{subst}}, {{acc_nb}})
-	<br><br>
+	<br>
 	<hr>
-	<h4>Substances you should not take</h4>
+	<h4>Drugs you should not take</h4>
 	<ul>
 		{% for row in ld %}
 			<li>{{ row }}</li>
