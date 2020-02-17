@@ -10,7 +10,7 @@ def home(request):
 	listDbis=[]
 	listS=[]
 	listI=[]
-	for i in range(5):
+	for i in range(6):
 		if request.POST.get(f'drug{i}')!=None:
 			listD.append(request.POST.get(f'drug{i}'))
 	for i in listD:
