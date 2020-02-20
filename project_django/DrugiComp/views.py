@@ -77,11 +77,13 @@ def test(request):
 		if row[0]==subst:
 			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[1]]))
 			res=cur.fetchall()
-			ld.append(res[0][0])
+			for i in res:
+				ld.append(i[0])
 		if row[1]==subst:
 			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[0]]))
 			res=cur.fetchall()
-			ld.append(res[0][0])
+			for i in res:
+				ld.append(i[0])
 	context={'title':'Test', 'ldrugs':ndrugs, 
 	'drug':inpdrug, 'drugsint':drugsint, 'subst':subst, 'acc_nb':acc_nb, 'ld':ld}
 	return render(request, 'DrugiComp/test.html', context)
