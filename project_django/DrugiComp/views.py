@@ -74,11 +74,15 @@ def test(request):
 	r=cur.fetchall()
 	# For each interaction that was selected:
 	for row in r:
+		# If the 'subst_a' attribute corresponds to our substance, we select every drug that has this substance in
+		# and put it in the ld list
 		if row[0]==subst:
 			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[1]]))
 			res=cur.fetchall()
 			for i in res:
 				ld.append(i[0])
+		# If the 'subst_b' attribute corresponds to our substance, we select every drug that has this substance in
+		# and put it in the ld list
 		if row[1]==subst:
 			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[0]]))
 			res=cur.fetchall()
