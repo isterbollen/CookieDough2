@@ -47,6 +47,7 @@ def statistics(request):
 	return render(request, 'DrugiComp/statistics.html', context)
 
 def test(request):
+	# We select every drug in the database for the dropdown list in the input
 	cur=connection.cursor()
 	cur.execute("SELECT name FROM drug")
 	ndrugs=cur.fetchall()
@@ -55,18 +56,23 @@ def test(request):
 	acc_nb=""
 	ld=[]
 	drugsint=[]
+	# If the input field is filled, i.e. a drug has beed requested, we put it in the inpdrug variable
 	if request.POST.get("drug")!=None:
 		inpdrug=request.POST.get("drug")
+	# For the drug that is in inpdrug, we fetch it's substance's name and the accession number of this substance
 	cur.execute("""SELECT d.subst_name, s.accession_num 
 					FROM drug d JOIN substance s ON d.subst_name=s.name 
 					WHERE d.name=%s""",([inpdrug]))
 	r=cur.fetchall()
+	# The subst contains the substance name of the drug and acc_nb, the accession number of this drug's substance
 	for row in r:
 		subst=row[0]
 		acc_nb=row[1]
+	# Now we look for every interaction where the drug substance we have is in either 'subst_a' or 'subst_b'
 	cur.execute("""SELECT * FROM interactions 
 					WHERE subst_a=%s OR subst_b=%s""",([subst],[subst]))
 	r=cur.fetchall()
+	# For each interaction that was selected:
 	for row in r:
 		if row[0]==subst:
 			cur.execute("SELECT name FROM drug WHERE subst_name=%s", ([row[1]]))
