@@ -49,6 +49,7 @@
 		{% endfor %}
 	</datalist>
 	<div id="container"></div>
+	<input type="button" id="addbutton" value="+" onclick="addField()" STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000"/>
 	<h4>Optional information about yourself that we use to our statistics page</h4>
 		<input list="age" name="age" placeholder="Age" style="border-color: #DDE5D9">
 		<datalist id="age">
@@ -58,12 +59,14 @@
 			<option value="41-60">
 			<option value="Over 60">
 		</datalist>
+		<br>
 		<input list="gender" name="gender" placeholder="Gender" style="border-color: #DDE5D9">
 		<datalist id="gender">
 			<option value="Male">
 			<option value="Female">
 			<option value="Other / Do not want to state">
 		</datalist>
+		<br>
 		<input list="continent" name="continent" placeholder="Continent" style="border-color: #DDE5D9">
 		<datalist id="continent">
 			<option value="Africa">
@@ -75,7 +78,6 @@
 			<option value="South America">
 		</datalist>
 		<br><br>
-	<input type="button" id="addbutton" value="+" onclick="addField()" STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000"/>
 	<input type='submit' value='Try!' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
 </form>
 <h4>List of the checked drugs</h4>
