@@ -37,6 +37,22 @@ def home(request):
 			# Each row of this list contains 'subst_a', 'subst_b', 'description' and 'level'
 			listI.append(li)
 	context={"nd":ndrugs, 'listI':listI, 'listDbis':listDbis}
+	
+	#Insert the statistics into the statistics table
+	for i in range(len(listDbis)):
+		inpage=""
+		inpgender=""
+		inpcontinent=""
+		inpdrug=""
+		subst=""
+		if request.POST.get("age")!=None and request.POST.get("gender")!=None and request.POST.get("continent")!=None:
+			inpdrug=listD[i]
+			subst=listS[i]
+			inpage=request.POST.get("age")
+			inpgender=request.POST.get("gender")
+			inpcontinent=request.POST.get("continent")
+			cur.execute('INSERT INTO statistics(id, drug, substance, age, gender, continent) VALUES(DEFAULT, %s, %s, %s, %s, %s)', ([inpdrug], [subst], [inpage], [inpgender], [inpcontinent]))
+	
 	return render(request, 'DrugiComp/home.html', context)
 
 def about(request):
@@ -90,4 +106,15 @@ def test(request):
 				ld.append(i[0])
 	context={'title':'Test', 'ldrugs':ndrugs, 
 	'drug':inpdrug, 'drugsint':drugsint, 'subst':subst, 'acc_nb':acc_nb, 'ld':ld}
+	
+	#Insert the statistics into the statistics table
+	inpage=""
+	inpgender=""
+	inpcontinent=""
+	if request.POST.get("age")!=None and request.POST.get("gender")!=None and request.POST.get("continent")!=None:
+		inpage=request.POST.get("age")
+		inpgender=request.POST.get("gender")
+		inpcontinent=request.POST.get("continent")
+		cur.execute('INSERT INTO statistics(id, drug, substance, age, gender, continent) VALUES(DEFAULT, %s, %s, %s, %s, %s)', ([inpdrug], [subst], [inpage], [inpgender], [inpcontinent]))
+	
 	return render(request, 'DrugiComp/test.html', context)
