@@ -1,6 +1,216 @@
 {% extends "DrugiComp/base.html" %}
 {% block content %}
 
-<h1>Statistics Page!</h1>
+<h1>Statistics Page</h1>
+<br><br>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+<div class='chartContainer', style="text-align: center">
+	<canvas id="pie-chart1"></canvas>
+	<br><br><br>
+	<canvas id="pie-chart2"></canvas>
+	<br><br><br>
+	<canvas id="pie-chart3"></canvas>
+	<br><br><br>
+	<canvas id="pie-chart4"></canvas>
+	<br><br><br>
+	<canvas id="pie-chart5"></canvas>
+	<br><br><br>
+	<canvas id="pie-chart6"></canvas>
+	<br><br><br>
+	<canvas id="pie-chart7"></canvas>
+	<br>
+</div>
+
+<script>
+
+	var chart1 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data1|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels1|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Drugs searched on DrugiComp'
+			},
+			responsive: true
+		}
+	};
+
+	var chart2 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data2|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels2|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Substances searched on DrugiComp'
+			},
+			responsive: true
+		}
+	};
+
+	var chart3 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data3|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels3|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Distribution of users in the world'
+			},
+			responsive: true
+		}
+	};
+
+	var chart4 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data4|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels4|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Distribution of age among male users'
+			},
+			responsive: true
+		}
+	};
+
+	var chart5 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data5|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels5|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Distribution of age among female users'
+			},
+			responsive: true
+		}
+	};
+
+	var chart6 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data6|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels6|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Distribution of age among other users'
+			},
+			responsive: true
+		}
+	};
+
+	var chart7 = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ data7|safe }},
+				backgroundColor: [
+				'#426151', '#82A684', '#B8CCAF', '#DDE5D9', '#D9DDC5'
+				],
+				label: 'Population'
+			}],
+			labels: {{ labels7|safe }}
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 20,
+				fontFamily: 'Lora',
+				fontColor: '#000000',
+				text: 'Distribution of gender among all users'
+			},
+			responsive: true
+		}
+	};
+
+	window.onload = function() {
+		var ctx1 = document.getElementById('pie-chart1').getContext('2d');
+		window.myPie = new Chart(ctx1, chart1);
+		var ctx2 = document.getElementById('pie-chart2').getContext('2d');
+		window.myPie = new Chart(ctx2, chart2);
+		var ctx3 = document.getElementById('pie-chart3').getContext('2d');
+		window.myPie = new Chart(ctx3, chart3);
+		var ctx4 = document.getElementById('pie-chart4').getContext('2d');
+		window.myPie = new Chart(ctx4, chart4);
+		var ctx5 = document.getElementById('pie-chart5').getContext('2d');
+		window.myPie = new Chart(ctx5, chart5);
+		var ctx6 = document.getElementById('pie-chart6').getContext('2d');
+		window.myPie = new Chart(ctx6, chart6);
+		var ctx7 = document.getElementById('pie-chart7').getContext('2d');
+		window.myPie = new Chart(ctx7, chart7);
+	};
+
+</script>
+
 
 {% endblock content %}
