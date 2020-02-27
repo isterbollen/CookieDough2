@@ -151,3 +151,104 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.error{
+  width : 100%;
+  border-style: inset;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #cc0033;
+  background-color: #fce4e4;
+}
+
+.error-message {
+  color: #cc0033;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0;
+}
+
+input[readonly] {
+  background: #d3e1d0;
+}
+
+.checkboxes_div{
+  height:200px;
+  overflow: scroll;
+}
+
+.fixed_header{
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fixed_header tbody{
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 200px;
+}
+
+.fixed_header thead tr {
+   display: block;
+}
+
+.fixed_header th, .fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 200px;
+}
+
+.alert {
+  position:relative;
+  padding:.75rem 1.25rem;
+  margin-bottom:1rem;
+  border:1px solid transparent;
+  border-radius:.25rem
+}
+
+/* Green alert */
+.alert-success{
+  color:#155724;
+  background-color:#d4edda;
+  border-color:#c3e6cb
+}
+
+/* Red alert */
+.alert-warning{
+  color:#721c24;
+  background-color:#f8d7da;
+  border-color:#f5c6cb
+}
+
+/* Blue alert */
+.alert-info{
+  color:#0c5460;
+  background-color:#d1ecf1;
+  border-color:#bee5eb
+}
+
+.form_text_big{
+  width : 100%;
+  border-style: inset;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.error_exist_fi{
+  width : 100%;
+  border-style: inset;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #cc6600;
+  background-color: #fcf6e3;
+}
+
+.nb_text{
+  display: inline-block;
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0;
+}
