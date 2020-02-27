@@ -33,13 +33,13 @@
 					<a class="nav-item nav-link" href="{% url 'DrugiComp-test' %}">Test</a>
 	    		</div>
 	    		<div class="navbar-nav">
-					{% if session == None%}
-						<a class="nav-item nav-link" href="{% url 'DrugiComp-admin_login' %}">Admin</a>
-					{% else %}
-						<a class="nav-item nav-link" href="{% url 'DrugiComp-admin_page' %}">Admin page</a>
-						<a class="nav-item nav-link" href="{% url 'DrugiComp-admin_login' %}">Log out</a>
-					{% endif %}
-				</div>
+				{% if session == None%}
+					<a class="nav-item nav-link" href="{% url 'DrugiComp-admin_login' %}">Admin</a>
+				{% else %}
+					<a class="nav-item nav-link" href="{% url 'DrugiComp-admin_page' %}">Admin page</a>
+					<a class="nav-item nav-link" href="{% url 'DrugiComp-admin_login' %}">Log out</a>
+				{% endif %}
+			</div>
 	    	</div>
 	    </div>
 	</nav>
