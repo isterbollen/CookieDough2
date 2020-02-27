@@ -59,8 +59,79 @@ def about(request):
 	return render(request, 'DrugiComp/about.html', {'title':'About'})
 
 def statistics(request):
-	context={'title':'Statistics'}
-	return render(request, 'DrugiComp/statistics.html', context)
+	# Data for chart 1
+	cur=connection.cursor()
+	cur.execute("SELECT drug, COUNT(*) FROM statistics GROUP BY drug")
+	drugs=cur.fetchall()
+	drugnames=[]
+	drugcount=[]
+	for i in drugs:
+		drugnames.append(i[0])
+		drugcount.append(i[1])
+
+	# Data for chart 2
+	cur=connection.cursor()
+	cur.execute("SELECT substance, COUNT(*) FROM statistics GROUP BY substance")
+	substances=cur.fetchall()
+	substnames=[]
+	substcount=[]
+	for i in substances:
+		substnames.append(i[0])
+		substcount.append(i[1])
+
+	# Data for chart 3
+	cur=connection.cursor()
+	cur.execute("SELECT continent, COUNT(*) FROM statistics GROUP BY continent")
+	continents=cur.fetchall()
+	contnames=[]
+	contcount=[]
+	for i in continents:
+		contnames.append(i[0])
+		contcount.append(i[1])
+
+	# Data for chart 4
+	cur=connection.cursor()
+	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Male' GROUP BY age")
+	meninfo=cur.fetchall()
+	menages=[]
+	menagecount=[]
+	for i in meninfo:
+		menages.append(i[0])
+		menagecount.append(i[1])
+
+	# Data for chart 5
+	cur=connection.cursor()
+	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Female' GROUP BY age")
+	womeninfo=cur.fetchall()
+	womenages=[]
+	womenagecount=[]
+	for i in womeninfo:
+		womenages.append(i[0])
+		womenagecount.append(i[1])
+
+	# Data for chart 6
+	cur=connection.cursor()
+	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Other / Do not want to state' GROUP BY age")
+	otherinfo=cur.fetchall()
+	otherages=[]
+	othercount=[]
+	for i in otherinfo:
+		otherages.append(i[0])
+		othercount.append(i[1])
+
+	# Data for chart 7
+	cur=connection.cursor()
+	cur.execute("SELECT gender, COUNT(*) FROM statistics GROUP BY gender")
+	genderinfo=cur.fetchall()
+	gendernames=[]
+	gendercount=[]
+	for i in genderinfo:
+		gendernames.append(i[0])
+		gendercount.append(i[1])
+
+	return render(request, "DrugiComp/statistics.html", {'title':'Statistics', 'labels1':drugnames, 'data1':drugcount, 'labels2':substnames,
+		'data2':substcount, 'labels3':contnames, 'data3':contcount, 'labels4':menages, 'data4':menagecount, 'labels5':womenages, 
+		'data5':womenagecount, 'labels6':otherages, 'data6':othercount, 'labels7':gendernames, 'data7':gendercount})
 
 def test(request):
 	# We select every drug in the database for the dropdown list in the input
