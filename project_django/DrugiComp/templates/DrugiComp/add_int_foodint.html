@@ -1,0 +1,103 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<form action="{% url 'DrugiComp-add_int_foodint' %}" method="POST">
+	{% csrf_token %}
+	<h1>Add interaction/food interaction</h1>
+	<input type="radio" id="interaction" name="object" value="interaction" {% if obj == possibilities.0 %}checked{% endif %}>
+	<label for="interaction">Interaction</label><br>
+	<input type="radio" id="food_interaction" name="object" value="food_interaction" {% if obj == possibilities.1 %}checked{% endif %}>
+	<label for="food_interaction">Food interaction</label><br>
+	<button>Next</button>
+	<hr>
+	{% if obj == possibilities.0 %}
+		<h4>Interaction</h4>
+		<h5>Substance A:</h5><input type="text" name="subst_a" list="subst_a" placeholder="Enter name of substance" class="{% if not subst_a or exist_s == False %}error{% else %}form_text{% endif %}" style="border-color: #DDE5D9" value="{% if subst_a %}{{subst_a}}{% endif %}" {% if subst_a and exist_s == True %} readonly="true" {% endif %}>
+		<datalist id="subst_a">
+			{% for subst in list_subst %}
+				<option value="{{ subst.0 }}">
+			{% endfor %}
+		</datalist>
+		{% if not subst_a %}
+			<div class="error-message">Fill in this field</div>
+		{% endif %}
+		{% if subst_a and exist_s == False %}
+			<div class="error-message">This drug doesn't exist</div>
+		{% endif %}
+		<br><button>Next</button><br>
+		{% if subst_a and exist_s == True %}
+			<h5>Substance B</h5>
+			<div class="checkboxes_div">
+			{% for row in subst_b_list %}
+				<input type="checkbox" name="subst_b" value="{{row.0}}" {% if row.0 in subst_b %}checked{% endif %}>
+				<label for="{{row.0}}">{{row.0}}</label><br>
+			{% endfor %}
+			</div>
+			<br><button>Next</button><br>
+			{% if subst_b %}
+				<hr>
+				<h4>Interaction indications</h4>
+				{% for subst in subst_b %}
+					<h5>{{subst_a}} <span>&#8596;</span> {{subst}}:</h5>
+					Description:<br>
+					<input type="text" name="description{{subst}}" class="form_text_big">
+					Level: <br>
+					<input type="radio" id="0" name="level{{subst}}" value=0>
+					<label for="0">0</label><br>
+					<input type="radio" id="1" name="level{{subst}}" value=1>
+					<label for="1">1</label><br>
+					<input type="radio" id="2" name="level{{subst}}" value=2>
+					<label for="2">2</label><br>
+					<input type="radio" id="3" name="level{{subst}}" value=3>
+					<label for="3">3</label><br>
+					<input type="radio" id="4" name="level{{subst}}" value=4>
+					<label for="4">4</label><br>
+					<input type="radio" id="5" name="level{{subst}}" value=5>
+					<label for="5">5</label><br>
+					<hr>
+				{% endfor %}
+				<input type='submit' name="new_interaction" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			{% endif %}
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.1 %}
+		<h4>Food interaction</h4>
+		<h5>Substance A:</h5>
+		<input type="text" name="fi_subst" list="fi_subst" placeholder="Enter name of substance" class="{% if exist_fi == False %}{% if not food %}error{% else %}form_text{% endif %}{% elif exist_fi == True %}error_exist_fi{% endif %}" style="border-color: #DDE5D9" value="{% if fi_subst %}{{fi_subst}}{% endif %}" {% if fi_subst and fi_exist_s == True and exist_fi == False %} readonly="true" {% endif %}>
+		<datalist id="fi_subst">
+			{% for subst in list_subst %}
+				<option value="{{ subst.0 }}">
+			{% endfor %}
+		</datalist>
+		{% if not fi_subst %}
+			<div class="error-message">Fill in this field</div>
+		{% endif %}
+		{% if fi_subst and fi_exist_s == False %}
+			<div class="error-message">This drug doesn't exist</div>
+		{% endif %}
+		<h5>Food</h5>
+		<input type="text" name="food" list="food" placeholder="Enter name of the food" class="{% if exist_fi == False %}{% if not food %}error{% else %}form_text{% endif %}{% elif exist_fi == True %}error_exist_fi{% endif %}" style="border-color: #DDE5D9" value="{% if food %}{{food}}{% endif %}" {% if food and exist_fi == False %} readonly="true" {% endif %}>
+		<datalist id="food">
+			{% for row in list_food %}
+				<option value="{{ row.0 }}">
+			{% endfor %}
+		</datalist>
+		{% if not food %}
+			<div class="error-message">Fill in this field</div>
+		{% endif %}
+		{% if exist_fi == True %}
+			<div class="error-message">WARNING: This combination already exists</div>
+		{% endif %}
+		<br><button {% if fi_subst and food and fi_exist_s == True and exist_fi == False %} disabled {% endif %}>Next</button><br>
+		{% if fi_subst and food and fi_exist_s == True and exist_fi == False %}
+			<input type="radio" id="avoid" name="indication" value="Avoid" {% if indication == possibilities.2 %}checked{% endif %}>
+			<label for="avoid">Avoid</label><br>
+			<input type="radio" id="limit" name="indication" value="Limit" {% if indication == possibilities.3 %}checked{% endif %}>
+			<label for="limit">Limit</label><br>
+			<button {% if indication %}disabled{% endif %}>Next</button>
+			{% if indication %}
+				<input type='submit' name="new_food_interaction" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			{% endif %}
+		{% endif %}
+	{% endif %}
+</form>
+{% endblock content %}

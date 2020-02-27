@@ -1,0 +1,9 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<h1>Administration page</h1>
+<a class="nav-item nav-link" href="{% url 'DrugiComp-add_ds' %}"><u>Add</u> Drug + Substance &#10004;</a>
+<a class="nav-item nav-link" href="{% url 'DrugiComp-add_int_foodint' %}"><u>Add</u> Interaction/Food interaction &#10004;</a>
+<a class="nav-item nav-link" href="{% url 'DrugiComp-remove_dsi' %}"><u>Remove</u> Drug/Interaction/Substance/Food interaction &#10004;</a>
+<a class="nav-item nav-link" href="{% url 'DrugiComp-modify_dsi' %}"><u>Modify</u> Drug/Substance/Interaction/Food interaction &#10004;</a>
+<a class="nav-item nav-link" href="{% url 'DrugiComp-view_database' %}">See the database &#10004;</a>
+{% endblock content %}

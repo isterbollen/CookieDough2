@@ -1,0 +1,67 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<h1>Display of the database</h1>
+<h4>Drug table</h4>
+<table class="fixed_header">
+	<thead>
+		<th>Name</th>
+		<th>Substance</th>
+	</thead>
+		{% for row in d_res %}
+			<tr>
+				<td>{{row.0}}</td>
+				<td>{{row.1}}</td>
+			</tr>
+		{% endfor %}
+</table>
+<hr>
+<h4>Substance table</h4>
+<table class="fixed_header">
+	<thead>
+		<th>Accession number</th>
+		<th>Name</th>
+		<th>Recommendation</th>
+	</thead>
+		{% for row in s_res %}
+			<tr>
+				<td>{{row.0}}</td>
+				<td>{{row.1}}</td>
+				<td>{{row.2}}</td>
+			</tr>
+		{% endfor %}
+</table>
+<hr>
+<h4>Interactions table</h4>
+<table class="fixed_header">
+	<thead>
+		<th>Substance A</th>
+		<th>Substance B</th>
+		<th>Description</th>
+		<th>Level</th>
+	</thead>
+		{% for row in i_res %}
+			<tr>
+				<td>{{row.1}}</td>
+				<td>{{row.2}}</td>
+				<td>{{row.3}}</td>
+				<td>{{row.4}}</td>
+			</tr>
+		{% endfor %}
+</table>
+<hr>
+<h4>Food interactions table</h4>
+<table class="fixed_header">
+	<thead>
+		<th>Substance</th>
+		<th>Food</th>
+		<th>Indication</th>
+	</thead>
+		{% for row in f_res %}
+			<tr>
+				<td>{{row.1}}</td>
+				<td>{{row.2}}</td>
+				<td>{{row.3}}</td>
+			</tr>
+		{% endfor %}
+</table>
+{% endblock content %}

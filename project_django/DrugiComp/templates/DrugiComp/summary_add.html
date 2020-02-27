@@ -1,0 +1,54 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<h1>New added tables:</h1>
+<h3>Drug</h3>
+<table>
+	<thead>
+		<th>Name</th>
+		<th>Substance</th>
+	</thead> 
+		<tr>
+			<td>{{drug}}</td>
+			<td>{{substance}}</td>
+		</tr>
+</table>
+{% if accession_number %}
+	<hr>
+	<h3>Substance</h3>
+	<table>
+		<thead>
+			<th>Accession number</th>
+			<th>Substance</th>
+			<th>Recommendation</th>
+		</thead> 
+			<tr>
+				<td>{{accession_number}}</td>
+				<td>{{substance}}</td>
+				<td>{{recommendation}}</td>
+			</tr>
+	</table>
+	<hr>
+	<h3>Interactions</h3>
+	{% if list_interactions %}
+		<table>
+			<thead>
+				<th>Substance A</th>
+				<th>Substance B</th>
+				<th>Description</th>
+				<th>Level</th>
+
+			</thead> 
+				{% for row in list_interactions %}
+					<tr>
+						<td>{{row.0}}</td>
+						<td>{{row.1}}</td>
+						<td>{{row.2}}</td>
+						<td>{{row.3}}</td>
+					</tr>
+				{% endfor %}
+		</table>
+	{% else %}
+		No interactions are being registered
+	{% endif %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,162 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<form action="{% url 'DrugiComp-modify_dsi' %}" method="POST">
+	{% csrf_token %}
+	<h1>Modify from the database</h1>
+	<input type="radio" id="drug" name="object" value="drug" {% if obj == possibilities.0 %}checked{% endif %}>
+	<label for="drug">Drug</label><br>
+	<input type="radio" id="substance" name="object" value="substance" {% if obj == possibilities.1 %}checked{% endif %}>
+	<label for="substance">Substance</label><br>
+	<input type="radio" id="interactions" name="object" value="interactions" {% if obj == possibilities.2 %}checked{% endif %}>
+	<label for="interactions">Interactions</label><br>
+	<input type="radio" id="food_interactions" name="object" value="food_interactions" {% if obj == possibilities.3 %}checked{% endif %}>
+	<label for="food_interactions">Food interactions</label><br>
+	<button>Next</button>
+	{% if obj == possibilities.0 %}
+		<hr>
+		<h4>Modify drug</h4>
+		<label for="drug_name">Name</label>:<input type="text" list="drug_name" name="drug_name" placeholder="Enter name of drug" class="{% if not drug or exist_d == False %}error{% else %}form_text{% endif %}" style="border-color: #DDE5D9" value="{% if drug %}{{drug}}{% endif %}" {% if drug and exist_d == True %} readonly="true" {% endif %}>
+		<datalist id="drug_name">
+			{% for row in d_res %}
+				<option value="{{ row.0 }}">
+			{% endfor %}
+		</datalist>
+		{% if not drug %}
+			<div class="error-message">Fill in this field</div>
+		{% endif %}
+		{% if drug and exist_d == False %}
+			<div class="error-message">This drug doesn't exists</div>
+		{% endif %}
+		<br><button {% if drug and exist_d == True %}disabled{% endif %}>Next</button>
+		{% if drug and exist_d == True %}
+			<hr><label for="new_drug">New name</label>:<input type="text" list="new_drug" name="new_drug" placeholder="Enter name of the new drug" class="{% if not new_drug or exist_nd == True %}error{% else %}form_text{% endif %}" style="border-color: #DDE5D9" value="{% if new_drug %}{{new_drug}}{% endif %}" {% if new_drug and exist_nd == False %} readonly="true" {% endif %}>
+			{% if not new_drug %}
+				<div class="error-message">Fill in this field</div>
+			{% endif %}
+			{% if exist_nd == True %}
+				<div class="error-message">This drug already exists</div>
+			{% endif %}
+			<br><button {% if new_drug and exist_nd == False %}disabled{% endif %}>Next</button>
+			{% if new_drug and exist_nd == False %}
+				<hr>
+				<input type='submit' name="modify_drug_name" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			{% endif %}
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.1 %}
+		<hr>
+		<h4>Modify substance</h4>
+		<label for="subst_name">Name</label>:<input type="text" list="subst_name" name="subst_name" placeholder="Enter name of the substance" class="{% if not subst or exist_s == False %}error{% else %}form_text{% endif %}" value="{% if subst %}{{subst}}{% endif %}" {% if subst and exist_s == True %} readonly="true" {% endif %}>
+		<datalist id="subst_name">
+			{% for row in s_res %}
+				<option value="{{ row.1 }}">
+			{% endfor %}
+		</datalist>
+		{% if not subst %}
+			<div class="error-message">Fill in this field</div>
+		{% endif %}
+		{% if subst and exist_s == False %}
+			<div class="error-message">This substance doesn't exist</div>
+		{% endif %}
+		<br><button {% if subst and exist_s == True %}disabled{% endif %}>Next</button>
+		{% if subst and exist_s == True %}
+			<hr><h4>{{subst}}</h4>
+			<input type="radio" id="new_subst_name" name="subst_objet" value="new_subst_name" {% if subst_objet == poss_subst.0 %}checked{% endif %}>
+			<label for="new_subst_name">Modify name</label><br>
+			<input type="radio" id="new_recommendation" name="subst_objet" value="new_recommendation" {% if subst_objet == poss_subst.1 %}checked{% endif %}>
+			<label for="new_recommendation">Modify recommendation</label><br>
+			<button {% if subst_objet %}disabled{% endif %}>Next</button>
+			{% if subst_objet == poss_subst.0 %}
+				<hr>
+				<label for="new_subst">New name</label>:<input type="text" list="new_subst" name="new_subst" placeholder="Enter name of the new substance" class="{% if not new_subst or exist_ns == True %}error{% else %}form_text{% endif %}" style="border-color: #DDE5D9" value="{% if new_subst %}{{new_subst}}{% endif %}" {% if new_subst and exist_ns == False %} readonly="true" {% endif %}>
+				{% if not new_subst %}
+					<div class="error-message">Fill in this field</div>
+				{% endif %}
+				{% if exist_ns == True %}
+					<div class="error-message">This substance already exists</div>
+				{% endif %}
+				<br><button {% if new_subst and exist_ns == False %}disabled{% endif %}>Next</button>
+				{% if new_subst and exist_ns == False %}
+					<hr>
+					<p class="error-message">WARNING: By update a substance, you will also update every other item in the database that contains this substance (drugs, interactions, ...)</p><br>
+					<input type='submit' name="modify_subst_name" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+				{% endif %}
+			{% endif %}
+			{% if subst_objet == poss_subst.1 %}
+				<hr><label for="recommendation">Recommendation</label><input type="text" name="recommendation" class="form_text" value="{{recom_subst}}" {% if recommendation %} readonly="true"{% endif%}>
+				<input type='submit' name="modify_recommendation" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			{% endif %}
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.2 %}
+		<hr>
+		<h4>Modify interaction</h4>
+			{% if tick_interaction %}
+				<input type="radio" id="{{tick_interaction}}" name="tick_interaction" value="{{tick_interaction}}" checked>
+				<label for="{{tick_interaction}}">{{selected_interaction.0.0}} <span>&#8596;</span> {{selected_interaction.0.1}}</label><br>
+			{% else %}
+				<div class="checkboxes_div">
+					{% for interaction in i_res %}
+						<input type="radio" id="{{interaction.0}}" name="tick_interaction" value="{{interaction.0}}">
+						<label for="{{interaction.0}}">{{interaction.1}} <span>&#8596;</span> {{interaction.2}} </label><br>
+					{% endfor %}
+				</div>
+			{% endif %}
+		<button {% if tick_interaction %}disabled{% endif %}>Next</button>
+		{% if tick_interaction %}
+			<hr><h4>{{selected_interaction.0.0}} <span>&#8596;</span> {{selected_interaction.0.1}}</h4>
+			<label for="description">Description</label><input type="text" name="description" class="form_text" value="{{selected_interaction.0.2}}">
+			<br><br>Level: <br>
+			<input type="radio" id="0" name="level" value=0 {% if selected_interaction.0.3 == 0 %}checked{% endif %}>
+			<label for="0">0</label><br>
+			<input type="radio" id="1" name="level" value=1 {% if selected_interaction.0.3 == 1 %}checked{% endif %}>
+			<label for="1">1</label><br>
+			<input type="radio" id="2" name="level" value=2 {% if selected_interaction.0.3 == 2 %}checked{% endif %}>
+			<label for="2">2</label><br>
+			<input type="radio" id="3" name="level" value=3 {% if selected_interaction.0.3 == 3 %}checked{% endif %}>
+			<label for="3">3</label><br>
+			<input type="radio" id="4" name="level" value=4 {% if selected_interaction.0.3 == 4 %}checked{% endif %}>
+			<label for="4">4</label><br>
+			<input type="radio" id="5" name="level" value=5 {% if selected_interaction.0.3 == 5 %}checked{% endif %}>
+			<label for="5">5</label><br>
+			<hr>
+			<input type='submit' name="modify_interaction" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			<br>{{level}}
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.3 %}
+		<hr>
+		<h4>Modify food interaction</h4>
+		{% if tick_fi %}
+			<input type="radio" id="{{tick_fi}}" name="tick_fi" value="{{tick_fi}}" checked>
+			<label for="{{tick_fi}}">{{selected_fi.0.0}} <span>&#8596;</span> {{selected_fi.0.1}}</label><br>
+		{% else %}
+		<div class="checkboxes_div">
+			{% for fi in f_res %}
+				<input type="radio" id="{{fi.0}}" name="tick_fi" value="{{fi.0}}">
+				<label for="{{fi.0}}">{{fi.1}} <span>&#8596;</span> {{fi.2}} </label><br>
+			{% endfor %}
+		</div>
+		{% endif %}
+		<button {% if tick_fi %}disabled{% endif %}>Next</button>
+		{% if tick_fi %}
+			<hr><h4>Modify indication</h4>
+			<input type="radio" id="avoid" name="indication" value="Avoid" {% if selected_fi.0.2 == poss_fi.0 %}checked{% endif %}>
+			<label for="avoid">Avoid</label><br>
+			<input type="radio" id="limit" name="indication" value="Limit" {% if selected_fi.0.2 == poss_fi.1 %}checked{% endif %}>
+			<label for="limit">Limit</label><br>
+			<input type='submit' name="modify_food_interaction" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+		{% endif %}
+	{% endif %}
+</form>
+
+<div class="nb_text">NB: Those are the possible changes
+<ul>
+	<li>Drug: you'll be able to change the name of an existing drug.</li>
+	<li>Substance: you'll be able to change the name of the substance or the recommendation</li>
+	<li>Interactions: you'll be able to modify the description or the level of the interaction</li>
+	<li>Food interactions: you'll be able to change the indication</li>
+</ul>
+Any other change is going to require removing a tuple and/or create another one
+</div><br>
+{% endblock content %}

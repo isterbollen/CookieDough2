@@ -1,0 +1,74 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<form action="{% url 'DrugiComp-add_ds' %}" method="POST">
+	{% csrf_token %}
+	<h1>Add a new drug</h1>
+	<hr>
+	<label for="drug_name">Name</label>:<input type="text" name="drug_name" placeholder="Enter name of drug" class="{% if not drug or exist_d == True %}error{% else %}form_text{% endif %}" style="border-color: #DDE5D9" value="{% if drug %}{{drug}}{% endif %}" {% if drug and substance and exist_d == False %} readonly="true" {% endif %}>
+	{% if not drug %}
+		<div class="error-message">Fill in this field</div>
+	{% endif %}
+	{% if exist_d == True %}
+		<div class="error-message">This drug already exists</div>
+	{% endif %}
+	<br><label for="substance_name">Name of the substance</label>:<input type="text" name="substance_name" placeholder="Enter name of drug" class="{% if substance %}form_text{% else %}error{% endif %}" style="border-color: #DDE5D9" value="{% if substance %}{{substance}}{% endif %}" {% if drug and substance and exist_d == False %} readonly="true" {% endif %}>
+	{% if not substance %}
+		<div class="error-message">Fill in this field</div>
+	{% endif %}
+	<br>
+	<button {% if drug and substance and exist_d == False %} disabled {% endif %}>Try</button><hr>
+	{% if drug and substance and exist_d == False and exist_s == False %}
+		<h4>New substance</h4>
+		<label for="accession_number">Accession number</label>:<input type="text" name="accession_number" class="form_text" value="{% if accession_number %}{{accession_number}}{% endif %}" {% if drug and accession_number and exist_an == False %} readonly="true" {% endif %}><br>
+		{% if not accession_number %}
+			<div class="error-message">Fill in this field</div><br>
+		{% endif %}
+		{% if exist_an == True %}
+			<div class="error-message">This accession number is already used</div><br>
+		{% endif %}
+		<label for="recommendation">Food recommendation</label>:<input type="text" name="recommendation" class="form_text" value="{% if recommendation %}{{recommendation}}{% endif %}">
+		<hr>
+		<button {% if accession_number and exist_an == False %} disabled {% endif %}>Try</button><hr>
+		{% if accession_number and exist_an == False %}
+			<h4>Interactions</h4>
+			<div class="checkboxes_div">
+			{% for row in ls %}
+				<input type="checkbox" name="substances" value="{{row.0}}" {% if row.0 in subst_int %}checked{% endif %}>
+				<label for="{{row.0}}">{{row.0}}</label><br>
+			{% endfor %}
+			</div>
+			<button>+</button>
+			{% if subst_int %}
+				<hr>
+				<h4>Interaction indications</h4>
+				{% for subst_b in subst_int %}
+					<h5>{{substance}} <span>&#8596;</span> {{subst_b}}:</h5>
+					Description:<br>
+					<input type="text" name="description{{subst_b}}" class="form_text_big">
+					Level: <br>
+					<input type="radio" id="0" name="level{{subst_b}}" value=0>
+					<label for="0">0</label><br>
+					<input type="radio" id="1" name="level{{subst_b}}" value=1>
+					<label for="1">1</label><br>
+					<input type="radio" id="2" name="level{{subst_b}}" value=2>
+					<label for="2">2</label><br>
+					<input type="radio" id="3" name="level{{subst_b}}" value=3>
+					<label for="3">3</label><br>
+					<input type="radio" id="4" name="level{{subst_b}}" value=4>
+					<label for="4">4</label><br>
+					<input type="radio" id="5" name="level{{subst_b}}" value=5>
+					<label for="5">5</label><br>
+					<hr>
+				{% endfor %}
+				<input type='submit' name="next_page" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			{% else %}
+				<input type='submit' name="next_page" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+			{% endif %}
+		{% endif %}
+	{% endif %}
+	{% if drug and substance and exist_d == False and exist_s == True %}
+		{{message}}<br>
+		<input type='submit' name="next_page" value='Submit' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+	{% endif %}
+</form>
+{% endblock content %}

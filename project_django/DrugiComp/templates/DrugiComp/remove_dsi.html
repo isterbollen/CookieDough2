@@ -1,0 +1,98 @@
+{% extends "DrugiComp/admin_base.html" %}
+{% block content %}
+<form action="{% url 'DrugiComp-remove_dsi' %}" method="POST">
+	{% csrf_token %}
+	<h1>Remove from the database</h1>
+	<input type="radio" id="drug" name="object" value="drug" {% if obj == possibilities.0 %}checked{% endif %}>
+	<label for="drug">Drug</label><br>
+	<input type="radio" id="substance" name="object" value="substance" {% if obj == possibilities.1 %}checked{% endif %}>
+	<label for="substance">Substance</label><br>
+	<input type="radio" id="interactions" name="object" value="interactions" {% if obj == possibilities.2 %}checked{% endif %}>
+	<label for="interactions">Interactions</label><br>
+	<input type="radio" id="food_interactions" name="object" value="food_interactions" {% if obj == possibilities.3 %}checked{% endif %}>
+	<label for="food_interactions">Food interactions</label><br>
+	<button>Next</button>
+	<hr>
+	{% if obj == possibilities.0 %}
+		<h4>Drug removal</h4>
+		<div class="checkboxes_div">
+			{% for drug in d_res %}
+				<input type="checkbox" name="drugs" value="{{drug.0}}" {% if drug.0 in listD %}checked{% endif %}>
+				<label for="{{drug.0}}">{{drug.0}} ({{drug.1}})</label><br>
+			{% endfor %}
+		</div>
+		<button>+</button>
+		<hr>
+		<h4>You will delete those drugs:</h4>
+		{% if listD %}
+			<ul>
+				{% for drug in listD %}
+					<li>{{drug}}</li>
+				{% endfor %}
+			</ul>
+			<input type='submit' name="remove_drug" value='Remove' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.1 %}
+		<h4>Substance removal</h4>
+		<div class="checkboxes_div">
+			{% for substance in s_res %}
+				<input type="checkbox" name="substances" value="{{substance.1}}" {% if substance.1 in listS %}checked{% endif %}>
+				<label for="{{substance.1}}">{{substance.1}} ({{substance.0}})</label><br>
+			{% endfor %}
+		</div>
+		<button>+</button>
+		<hr>
+		<h4>You will delete those substances:</h4>
+		{% if listS %}
+			<ul>
+				{% for substance in listS %}
+					<li>{{substance}}</li>
+				{% endfor %}
+			</ul>
+			<p class="error-message">WARNING: By removing a substance, you will also remove every other item in the database that contains this substance (drugs, interactions, ...)</p>
+			<input type='submit' name="remove_substance" value='Remove' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.2 %}
+		<h4>Interaction removal</h4>
+		<div class="checkboxes_div">
+			{% for interaction in i_res %}
+				<input type="checkbox" name="interactions" value="{{interaction.0}}" {% if interaction.0 in listI %}checked{% endif %}>
+				<label for="{{interaction.0}}">{{interaction.1}} <span>&#8596;</span> {{interaction.2}}</label><br>
+			{% endfor %}
+		</div>
+		<button>+</button>
+		{% if listI %}
+			<hr>
+			<h4>You will delete those interactions:</h4>
+			<ul>
+				{% for interaction in listIbis%}
+					<li>{{interaction.0.0}} <span>&#8596;</span> {{interaction.0.1}}</li>
+				{% endfor %}
+			</ul>
+			<input type='submit' name="remove_interaction" value='Remove' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+		{% endif %}
+	{% endif %}
+	{% if obj == possibilities.3 %}
+		<h4>Food interaction removal</h4>
+		<div class="checkboxes_div">
+			{% for food_interaction in f_res %}
+				<input type="checkbox" name="food_interactions" value="{{food_interaction.0}}" {% if food_interaction.0 in listF %}checked{% endif %}>
+				<label for="{{food_interaction.0}}">{{food_interaction.1}} <span>&#8596;</span> {{food_interaction.2}}</label><br>
+			{% endfor %}
+		</div>
+		<button>+</button>
+		<hr>
+		<h4>You will delete those food interactions:</h4>
+		{% if listF %}
+			<ul>
+				{% for food_interaction in listFbis%}
+					<li>{{food_interaction.0.0}} <span>&#8596;</span> {{food_interaction.0.1}}</li>
+				{% endfor %}
+			</ul>
+			<input type='submit' name="remove_food_interaction" value='Remove' STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000">
+		{% endif %}
+	{% endif %}
+</form>
+{% endblock content %}
