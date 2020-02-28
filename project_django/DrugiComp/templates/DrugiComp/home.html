@@ -87,22 +87,29 @@
 	{% endfor %}
 </ul>
 <hr>
+<h4>List of the checked drugs</h4>
+<ul>
+	{% for item in listDbis %}
+		<li>{{item.0}} ({{item.1}})</li>
+	{% endfor %}
+</ul>
+<hr>
 <h4>Interactions found</h4>
 {% if listI %}
 	<table>
 	    <thead>
 	        <th>Substance A</th>
 	        <th>Substance B</th>
-		<th>Description</th>
+	        <th>Description</th>
 	        <th>Level</th>
 	    </thead>
 	     
 	    {% for row in listI %}
 	        <tr>
-	           <td>{{row.0}}</td>
-	           <td>{{row.1}}</td>
-	           <td>{{row.2}}</td>
-		   <td>{{row.3}}</td>
+	        	<td>{{row.1}}</td>
+	        	<td>{{row.2}}</td>
+	        	<td>{{row.3}}</td>
+	        	<td>{{row.4}}</td>
 	        </tr>
 	    {% endfor %}
 	</table>
