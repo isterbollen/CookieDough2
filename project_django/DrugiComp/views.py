@@ -253,7 +253,7 @@ def test(request):
 			res=cur.fetchall()
 			for i in res:
 				ld.append(i[0])
-	context={'title':'Test', 'ldrugs':ndrugs, 
+	context={'title':'Finder', 'ldrugs':ndrugs, 
 	'drug':inpdrug, 'drugsint':drugsint, 'subst':subst, 'acc_nb':acc_nb, 'ld':ld}
 	
 	#Insert the statistics into the statistics table
