@@ -27,10 +27,10 @@
 	    	</button>
 	    	<div class="collapse navbar-collapse" id="navbarToggle">
 	    		<div class="navbar-nav mr-auto">
-	    			<a class="nav-item nav-link" href="{% url 'DrugiComp-home' %}">Home</a>
+	    			<a class="nav-item nav-link" href="{% url 'DrugiComp-home' %}">Checker</a>
+	    			<a class="nav-item nav-link" href="{% url 'DrugiComp-test' %}">Finder</a>
+				<a class="nav-item nav-link" href="{% url 'DrugiComp-statistics' %}">Statistics</a>
 	    			<a class="nav-item nav-link" href="{% url 'DrugiComp-about' %}">About</a>
-					<a class="nav-item nav-link" href="{% url 'DrugiComp-statistics' %}">Statistics</a>
-					<a class="nav-item nav-link" href="{% url 'DrugiComp-test' %}">Test</a>
 	    		</div>
 	    		<div class="navbar-nav">
 				{% if session == None%}
