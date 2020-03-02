@@ -1,5 +1,7 @@
 {% extends "DrugiComp/base.html" %}
 {% block content %}
+<div class="row">
+<div class="col-md-8">
 <form action="{% url 'DrugiComp-home' %}" method="POST">
 	{% csrf_token %}
 	<script>
@@ -113,4 +115,41 @@
 		<p>No interactions found</p>
 	{% endif %}
 {% endif %}
+</div>
+<div class="col-md-4">
+	<button class="collapsible">Interaction level explanation:</button>
+	<div class="content-section">
+		<h5>Level 0: Not established</h5>
+		The interaction may theoretically occur due to its pharmacokinetics and pharmacodynamics. There have not been any established reports of the interaction.
+		<h5>Level 1: Not clinically significant <span STYLE="color:#b3ffb3">&#9729;</span></h5>
+		The interaction may occur, but the outcome is not clinically significant.
+		<h5>Level 2: Caution <span STYLE="color:#ecffb3">&#9729;</span></h5>
+		The interaction may occur based on the mechanism of action of the co-administered medicines. Be alert for increased or decreased effect, depending on the combination of medicines.
+		<h5>Level 3: Minor <span STYLE="color:#ffffb3">&#9729;</span></h5>
+		Clinical effects of the interaction are limited and may be bothersome but would not usually require a major change to therapy. The patient should be monitored for the possible manifestations of the interaction.
+		<h5>Level 4: Major <span STYLE="color:#ffd9b3">&#9729;</span></h5>
+		These medications may interact resulting in the potential deterioration of the patient's condition. The patient should be monitored for the possible manifestations of the interaction. Medical intervention or a change in therapy may be required.
+		<h5>Level 5: Severe <span STYLE="color:#ffb3b3">&#9729;</span></h5>
+		The interaction between these medications may be life-threatening or may cause permanent damage. These medications are not usually used concurrently; medical intervention may be required.
+		<hr>
+		<div class="nb_text">Source: https://www.mims.com/india/Viewer/Html/DrugAlertSig.htm</div><hr>
+	</div>
+	<script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+		coll[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.maxHeight){
+				content.style.maxHeight = null;
+			} else {
+				content.style.maxHeight = content.scrollHeight + "px";
+			} 
+		});
+	}
+	</script>
+</div>
+</div>
 {% endblock content %}
