@@ -1,12 +1,9 @@
 {% extends "DrugiComp/base.html" %}
 {% block content %}
-
-<h1>Testpage</h1>
-<p>This is a try, it's not really what is going to stay on the page</p>
 <div>
 	<form action="{% url 'DrugiComp-test' %}" method="POST">
 		{% csrf_token %}
-		<h3>Type a drug and find out which other drugs you cannot take with this one</h3>
+		<h3>Interaction Finder</h3>
 		<hr>
 		<input type="text" class="form_text" list="drug" name="drug" placeholder="Drug to test" style="border-color: #DDE5D9">
 		<datalist id="drug">
