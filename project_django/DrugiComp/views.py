@@ -139,7 +139,7 @@ def about(request):
 def statistics(request):
 	# Data for chart 1
 	cur=connection.cursor()
-	cur.execute("SELECT drug, COUNT(*) FROM statistics GROUP BY drug")
+	cur.execute("SELECT drug, COUNT(*) FROM statistics GROUP BY drug ORDER BY COUNT(*) DESC")
 	drugs=cur.fetchall()
 	drugnames=[]
 	drugcount=[]
@@ -149,7 +149,7 @@ def statistics(request):
 
 	# Data for chart 2
 	cur=connection.cursor()
-	cur.execute("SELECT substance, COUNT(*) FROM statistics GROUP BY substance")
+	cur.execute("SELECT substance, COUNT(*) FROM statistics GROUP BY substance ORDER BY COUNT(*) DESC")
 	substances=cur.fetchall()
 	substnames=[]
 	substcount=[]
@@ -159,7 +159,7 @@ def statistics(request):
 
 	# Data for chart 3
 	cur=connection.cursor()
-	cur.execute("SELECT continent, COUNT(*) FROM statistics GROUP BY continent")
+	cur.execute("SELECT continent, COUNT(*) FROM statistics WHERE NOT continent='' GROUP BY continent ORDER BY COUNT(*) DESC")
 	continents=cur.fetchall()
 	contnames=[]
 	contcount=[]
@@ -169,7 +169,7 @@ def statistics(request):
 
 	# Data for chart 4
 	cur=connection.cursor()
-	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Male' GROUP BY age")
+	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Male' AND age!='' GROUP BY age ORDER BY COUNT(*) DESC")
 	meninfo=cur.fetchall()
 	menages=[]
 	menagecount=[]
@@ -179,7 +179,7 @@ def statistics(request):
 
 	# Data for chart 5
 	cur=connection.cursor()
-	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Female' GROUP BY age")
+	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Female' AND age!='' GROUP BY age ORDER BY COUNT(*) DESC")
 	womeninfo=cur.fetchall()
 	womenages=[]
 	womenagecount=[]
@@ -189,7 +189,7 @@ def statistics(request):
 
 	# Data for chart 6
 	cur=connection.cursor()
-	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Other / Do not want to state' GROUP BY age")
+	cur.execute("SELECT age, COUNT(*) FROM statistics WHERE gender='Other / Do not want to state' AND age!='' GROUP BY age ORDER BY COUNT(*) DESC")
 	otherinfo=cur.fetchall()
 	otherages=[]
 	othercount=[]
@@ -199,7 +199,7 @@ def statistics(request):
 
 	# Data for chart 7
 	cur=connection.cursor()
-	cur.execute("SELECT gender, COUNT(*) FROM statistics GROUP BY gender")
+	cur.execute("SELECT gender, COUNT(*) FROM statistics WHERE NOT gender='' GROUP BY gender ORDER BY COUNT(*) DESC")
 	genderinfo=cur.fetchall()
 	gendernames=[]
 	gendercount=[]
