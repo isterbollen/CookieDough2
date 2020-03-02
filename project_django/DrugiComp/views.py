@@ -107,7 +107,7 @@ def home(request):
 	# in position 1 or 2 of a row and that another substance of our list is in the corresponding other position, we have
 	# an interaction
 	# We add only the interactions that came out in the list called listI
-	cur.execute("SELECT * FROM interactions")
+	cur.execute("SELECT * FROM interactions ORDER BY level DESC")
 	r=cur.fetchall()
 	for row in r:
 		li=list(row[0:])
