@@ -98,8 +98,13 @@ tr td:hover { background: #DDE5D9; color: #000000; }
 }
 
 .content-section {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
   background: #ffffff;
-  padding: 10px 20px;
+  font-family: 'Lora';
+  padding: 0px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
@@ -251,4 +256,21 @@ input[readonly] {
   font-size: 12px;
   line-height: 15px;
   margin: 5px 0 0;
+}
+
+
+.collapsible {
+  font-family: 'Lora';
+  background-color: #B8CCAF;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #acc3a2;
 }
