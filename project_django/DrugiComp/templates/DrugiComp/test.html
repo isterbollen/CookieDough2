@@ -43,23 +43,21 @@
 		<br><br>
 		<input type="submit" value="Find interactions" STYLE="border-color:#82A684; background-color:#EDEEEA ; color:#000000"/>
 	</form>
-
-	
-	<h4>You want to know which drugs you can't take together with:</h4>
 	{% if drug %}
-	{{drug}} ({{subst}}, {{acc_nb}})
-	{% endif %}
-	<br>
-	<hr>
-	<h4>Drugs you should not take</h4>
-	<ul>
-	{% if ld %}
-		{% for row in ld %}
-			<li>{{ row }}</li>
-		{% endfor %}
-	</ul>
-	{% else %}
-	<p>No interactions found</p>
+		<h4>You want to know which drugs you can't take together with:</h4>
+		{{drug}} ({{subst}}, {{acc_nb}})
+		<br>
+		<hr>
+		<h4>Drugs you should not take</h4>
+		<ul>
+		{% if ld %}
+			{% for row in ld %}
+				<li>{{ row }}</li>
+			{% endfor %}
+		</ul>
+		{% else %}
+		<p>No interactions found</p>
+		{% endif %}
 	{% endif %}
 </div>
 {% endblock content %}
