@@ -290,6 +290,7 @@ def admin_login(request):
 			password=form_login.cleaned_data['password']
 			if CheckAdmin(username, password)==True:
 				request.session['username']=username
+				request.session.set_expiry(900)
 			else:
 				username=None
 	context={'title':'Administratior Login', 'username':username, 'form':form_login}
