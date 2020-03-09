@@ -325,11 +325,11 @@ def add_ds(request):
 			ls.append(r)
 		if request.POST.get("next_page"):
 			cur=connection.cursor()
+			list_interactions=[]
 			if accession_number:
 				cur.execute("""INSERT INTO substance VALUES (%s, %s, %s)""", ([accession_number],[substance],[recommendation]))
 				cur.execute("""INSERT INTO drug VALUES (%s, %s)""", ([drug],[substance]))
 				if subst_int:
-					list_interactions=[]
 					for row in subst_int:
 						description=None
 						cur.execute("""SELECT max(int_id) FROM interactions;""")
